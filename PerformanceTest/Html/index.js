@@ -3,8 +3,8 @@
 (function (TEST) {
     var Para = {
         size: 64,
-        width: 30,
-        height: 30,
+        width: 120,
+        height: 120,
         staticInterval: 4,
         moveNumber: 6
     };
