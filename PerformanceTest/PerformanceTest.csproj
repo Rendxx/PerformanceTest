@@ -19,8 +19,8 @@
     <Content Include="controller\controller.move.min.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Html\grid_bg.png" />
-    <Content Include="Html\sample.html" />
-    <Content Include="Html\sample.js" />
+    <Content Include="Html\index.html" />
+    <Content Include="Html\index.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
@@ -28,7 +28,7 @@
   <ItemGroup>
     <None Include="bower.json" />
     <None Include="bundle.json" />
-    <Content Include="Html\sample.css" />
+    <Content Include="Html\index.css" />
     <Content Include="Html\grid_bg.fla" />
     <Content Include="controller\controller.move.css.map" />
     <Content Include="controller\controller.move.js.map" />
