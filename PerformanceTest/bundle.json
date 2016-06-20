@@ -24,7 +24,9 @@
   // e.g. "#dest#" in [bundle.bower] will only match the "dest" string in [path.bower]
   "bundle": {
     "bower": {
-      "#dest#/jquery": "#src#/jquery/dist/jquery*.{js,map}"
+      "#dest#/jquery": "#src#/jquery/dist/jquery*.{js,map}",
+      "#dest#/stats.js": "#src#/stats.js/build/*.{js,map}",
+      "#dest#/dat-gui": "#src#/dat-gui/build/*.{js,map}"
     },
     "less": {
     },

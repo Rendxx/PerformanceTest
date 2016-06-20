@@ -14,7 +14,11 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="controller\controller.move.css" />
+    <Content Include="controller\controller.move.js" />
+    <Content Include="controller\controller.move.min.js" />
     <Content Include="gulpfile.js" />
+    <Content Include="Html\grid_bg.png" />
     <Content Include="Html\sample.html" />
     <Content Include="Html\sample.js" />
   </ItemGroup>
@@ -25,6 +29,10 @@
     <None Include="bower.json" />
     <None Include="bundle.json" />
     <Content Include="Html\sample.css" />
+    <Content Include="Html\grid_bg.fla" />
+    <Content Include="controller\controller.move.css.map" />
+    <Content Include="controller\controller.move.js.map" />
+    <Content Include="controller\controller.move.min.js.map" />
     <None Include="package.json" />
   </ItemGroup>
   <PropertyGroup>
