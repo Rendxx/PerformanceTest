@@ -20,12 +20,17 @@
         //data
         var that = this,
             _html = {},
+            _loadCount = 1,
             x = 0,
             y = 0,
             delta_x = 0,
             delta_y = 0,
             movePos = [],
-            changeCount = [];
+            changeCount = [],
+            SCREEN_WIDTH = 0,
+            SCREEN_HEIGHT = 0;
+
+        var renderer, stage, container;
 
         var img = ['a.gif', 'b.gif', 'c.gif'];
         // callback
@@ -40,27 +45,20 @@
         // private
         var animate = function () {
             requestAnimationFrame(animate);
+            
 
-
-            for (var i = 0; i < Para.moveNumber; i++) {
-                _html['moving'][i].css({
-                    'transform': 'rotate(' + i * -40 + 'deg) translateY(' + movePos[i] + 'px)'
-                });
-            }
-            _html['scene'].css({
-                'transform': 'translate('+x + 'px,'+(-y)+'px)'
-            });
+            renderer.render(stage);
 
             if (that.onAnimate !== null) that.onAnimate();
         };
 
         var moveControl = function () {
             x += delta_x;
-            y += delta_y;
+            y -= delta_y;
             if (x > 0) x = 0;
             else if (x < -Para.width * Para.size) x = -Para.width * Para.size;
-            if (y < 0) y = 0;
-            else if (y > Para.height * Para.size) y = Para.height * Para.size;
+            if (y > 0) y = 0;
+            else if (y < -Para.height * Para.size) y = Para.height * Para.size;
 
 
             //for (var i = 0; i < Para.moveNumber; i++) {
@@ -69,77 +67,81 @@
             //        'top': movePos[i] + 'px'
             //    });
             //}
-            //_html['scene'].css({
-            //    'top':-y + 'px',
-            //    'left':x + 'px'
-            //});
-
-            for (var i = 0; i < Para.moveNumber; i++) {
-                movePos[i] = (movePos[i] + 1) % 200;
-                changeCount[i]++;
-                if (changeCount[i] >= 30 + i * 5) {
-                    changeCount[i] = 0;
-                    _html['moving'][i].css({
-                        'background-image': 'url("' + img[Math.floor(Math.random()*3)] + '")'
-                    });
-                }
-            }
+            container.position.x = x;
+            container.position.y = y;
 
             setTimeout(moveControl, 30);
         };
 
         var createItem = function () {
-            for (var i = 0; i < Para.width; i += Para.staticInterval) {
-                for (var j = 0; j < Para.height; j += Para.staticInterval) {
-                    $(Data.html.item).css({
-                        'left': i * Para.size + 'px',
-                        'top': j * Para.size + 'px'
-                    }).appendTo(_html['staticItem']);
+            _loadCount++;
+            PIXI.loader.add('staticItem', 'item.png').load(function (loader, resources) {
+                var item = new PIXI.Sprite(resources.staticItem.texture);
+
+                for (var i = 0; i < Para.width; i += Para.staticInterval) {
+                    for (var j = 0; j < Para.height; j += Para.staticInterval) {
+                        $(Data.html.item).css({
+                            'left': i * Para.size + 'px',
+                            'top': j * Para.size + 'px'
+                        }).appendTo(_html['staticItem']);
+
+                        var item = new PIXI.Sprite(resources.staticItem.texture);
+                        item.position.x = i * Para.size;
+                        item.position.y = j * Para.size;
+                        container.addChild(item);
+                    }
                 }
-            }
-            for (var i = 0; i < Para.moveNumber; i++) {
-                movePos[i] = i * 10;
-                changeCount[i] = i;
-                _html['moving'][i] = $(Data.html.item2).css({
-                    'top': 120+i*2+'px',
-                    'left': 60 + i * 40 + 'px',
-                    'background-image': 'url("' + img[Math.floor(Math.random() * 3)] + '")'
-                }).appendTo(_html['moveItem']);
-            }
+
+                _onload();
+            });
+
+            _loadCount++;
+            PIXI.loader.add('item_a', 'a.gif').load(function (loader, resources) {
+                var item = new PIXI.Sprite(resources.item_a.texture);
+
+                for (var i = 0; i < Para.width; i += Para.staticInterval) {
+                    for (var j = 0; j < Para.height; j += Para.staticInterval) {
+                        $(Data.html.item).css({
+                            'left': 120 + i * 2 + 'px',
+                            'top': 60 + i * 40 + 'px'
+                        }).appendTo(_html['staticItem']);
+
+                        var item = new PIXI.Sprite(resources.staticItem.texture);
+                        item.position.x = i * Para.size;
+                        item.position.y = j * Para.size;
+                        container.addChild(item);
+                    }
+                }
+
+                _onload();
+            });
+
+            _onload();
+        };
+
+        var _onload = function () {
+            if (--_loadCount > 0) return;
+            animate();
         };
 
         var _setupHtml = function () {
             _html['wrap'] = $('.wrap');
             _html['scene'] = _html['wrap'].children('.scene');
-            _html['moveItem'] = _html['scene'].children('._move').css({
-                width: Para.width * Para.size,
-                height: Para.height * Para.size
-            });
-            _html['staticItem'] = _html['scene'].children('._static').css({
-                width: Para.width * Para.size,
-                height: Para.height * Para.size
-            });
-            _html['bg'] = _html['scene'].children('._bg').css({
-                width: Para.width * Para.size,
-                height: Para.height * Para.size
-            }).attr({
-                width: Para.width * Para.size,
-                height: Para.height * Para.size
-            });
-            _html['moving'] = [];
+                        
+            SCREEN_WIDTH = window.innerWidth;
+            SCREEN_HEIGHT = window.innerHeight;
+            renderer = new PIXI.WebGLRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+            _html['scene'][0].appendChild(renderer.view);
+            stage = new PIXI.Container();
+            container = new PIXI.DisplayObjectContainer()
 
-            // canvas
-
-            var img = new Image();
-            img.onload = function () {
-                var ctx = _html['bg'][0].getContext("2d");
-                ctx.save();
-                var ptrn = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-                ctx.fillStyle = ptrn;
-                ctx.fillRect(0, 0, Para.width * Para.size, Para.height * Para.size);
-                ctx.restore();
-            };
-            img.src = 'grid_bg.png';
+            _loadCount++;
+            var texture = PIXI.Texture.fromImage("grid_bg.png");
+            var tilingSprite = new PIXI.TilingSprite(texture, Para.width * Para.size, Para.height * Para.size);
+            
+            container.addChild(tilingSprite);
+            stage.addChild(container);
+            _onload();
         };
 
         var _init = function () {

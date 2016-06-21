@@ -167,6 +167,7 @@
     <Content Include="Pixi\index.css" />
     <Content Include="Pixi\index.html" />
     <Content Include="Pixi\index.js" />
+    <Content Include="Pixi\item.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
