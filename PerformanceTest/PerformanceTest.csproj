@@ -160,6 +160,13 @@
     <Content Include="Html\grid_bg.png" />
     <Content Include="Html\index.html" />
     <Content Include="Html\index.js" />
+    <Content Include="Pixi\a.gif" />
+    <Content Include="Pixi\b.gif" />
+    <Content Include="Pixi\c.gif" />
+    <Content Include="Pixi\grid_bg.png" />
+    <Content Include="Pixi\index.css" />
+    <Content Include="Pixi\index.html" />
+    <Content Include="Pixi\index.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />

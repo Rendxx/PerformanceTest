@@ -6,7 +6,8 @@
   "dependencies": {
     "jquery": "1.11.2",
     "stats.js": "*",
-    "dat-gui": "^0.5.1"
+    "dat-gui": "^0.5.1",
+    "pixi.js": "^3.0.11"
   },
   "moduleType": [
     "globals"

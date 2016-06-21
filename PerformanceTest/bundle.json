@@ -26,7 +26,8 @@
     "bower": {
       "#dest#/jquery": "#src#/jquery/dist/jquery*.{js,map}",
       "#dest#/stats.js": "#src#/stats.js/build/*.{js,map}",
-      "#dest#/dat-gui": "#src#/dat-gui/build/*.{js,map}"
+      "#dest#/dat-gui": "#src#/dat-gui/build/*.{js,map}",
+      "#dest#/pixi.js": "#src#/pixi.js/bin/*.{js,map}"
     },
     "less": {
     },
