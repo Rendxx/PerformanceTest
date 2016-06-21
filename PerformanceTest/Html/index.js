@@ -11,7 +11,8 @@
 
     var Data = {
         html: {
-            item: '<div class="_item"></div>'
+            item: '<div class="_item"></div>',
+            item2: '<div class="_item2"></div>'
         }
     };
 
@@ -23,7 +24,8 @@
             y = 0,
             delta_x = 0,
             delta_y = 0,
-            movePos = [];
+            movePos = [],
+            changeCount = [];
 
         // callback
         this.onAnimate = null;
@@ -71,9 +73,18 @@
             //    'left':x + 'px'
             //});
 
+            var img = ['a.gif', 'b.gif', 'c.gif'];
             for (var i = 0; i < Para.moveNumber; i++) {
                 movePos[i] = (movePos[i] + 1) % 200;
+                changeCount[i]++;
+                if (changeCount[i] >= 30 + i * 5) {
+                    changeCount[i] = 0;
+                    _html['moving'][i].css({
+                        'background-image': 'url("' + img[Math.floor(Math.random()*3)] + '")'
+                    });
+                }
             }
+
             setTimeout(moveControl, 30);
         };
 
@@ -88,8 +99,10 @@
             }
             for (var i = 0; i < Para.moveNumber; i++) {
                 movePos[i] = i * 10;
-                _html['moving'][i] = $(Data.html.item).css({
-                    'left': i * 40 + 'px'
+                changeCount[i] = i;
+                _html['moving'][i] = $(Data.html.item2).css({
+                    'top': 120+i*2+'px',
+                    'left': 60+i * 40 + 'px'
                 }).appendTo(_html['moveItem']);
             }
         };

@@ -66,6 +66,18 @@
     backface-visibility:hidden;
 }
 
+
+._item2{
+    position:absolute;
+    width:64px;
+    height:64px;
+    background-position:center center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    backface-visibility:hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow:0 0 10px #000;
+}
 .controller {
     width: 100%;
     height: 100%;
