@@ -91,16 +91,27 @@
             });
 
             _loadCount++;
-            PIXI.loader.add('item_a', 'a.gif').load(function (loader, resources) {
-                var item = new PIXI.Sprite(resources.item_a.texture);
+            PIXI.loader.add('item_a', 'a.json').add('item_b', 'b.json').add('item_c', 'c.json').load(function (loader, resources) {
+
+                var frames = [];
+
+                for (var i = 0; i < 45; i++) {
+                    var val = i < 10 ? '0' + i : i;
+                    frames.push(PIXI.Texture.fromFrame('iconA00' + val));
+                }
+
                 movePos = [];
                 changeCount = [];
                 for (var i = 0; i < Para.moveNumber; i++) {
                     movePos[i] = i * 10;
                     changeCount[i] = i;
-                    var item = new PIXI.Sprite(resources.item_a.texture);
+                    var item = new PIXI.extras.MovieClip(frames);
                     item.position.x = 120 + i * 2;
                     item.position.y = 60 + i * 40;
+                    item.animationSpeed = 0.5;
+                    item.anchor.set(0.5);
+                    item.play();
+
                     container.addChild(item);
                 }
 

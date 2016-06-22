@@ -165,8 +165,11 @@
     <Content Include="PixiTest\index.js" />
     <Content Include="PixiTest\item.png" />
     <Content Include="Pixi\a.gif" />
+    <Content Include="Pixi\a.png" />
     <Content Include="Pixi\b.gif" />
+    <Content Include="Pixi\b.png" />
     <Content Include="Pixi\c.gif" />
+    <Content Include="Pixi\c.png" />
     <Content Include="Pixi\grid_bg.png" />
     <Content Include="Pixi\index.css" />
     <Content Include="Pixi\index.html" />
@@ -188,6 +191,9 @@
     <Content Include="Html\animation\b.fla" />
     <Content Include="Html\animation\c.fla" />
     <None Include="package.json" />
+    <Content Include="Pixi\c.json" />
+    <Content Include="Pixi\a.json" />
+    <Content Include="Pixi\b.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
