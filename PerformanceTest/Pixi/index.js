@@ -80,11 +80,6 @@
 
                 for (var i = 0; i < Para.width; i += Para.staticInterval) {
                     for (var j = 0; j < Para.height; j += Para.staticInterval) {
-                        $(Data.html.item).css({
-                            'left': i * Para.size + 'px',
-                            'top': j * Para.size + 'px'
-                        }).appendTo(_html['staticItem']);
-
                         var item = new PIXI.Sprite(resources.staticItem.texture);
                         item.position.x = i * Para.size;
                         item.position.y = j * Para.size;
@@ -98,19 +93,15 @@
             _loadCount++;
             PIXI.loader.add('item_a', 'a.gif').load(function (loader, resources) {
                 var item = new PIXI.Sprite(resources.item_a.texture);
-
-                for (var i = 0; i < Para.width; i += Para.staticInterval) {
-                    for (var j = 0; j < Para.height; j += Para.staticInterval) {
-                        $(Data.html.item).css({
-                            'left': 120 + i * 2 + 'px',
-                            'top': 60 + i * 40 + 'px'
-                        }).appendTo(_html['staticItem']);
-
-                        var item = new PIXI.Sprite(resources.staticItem.texture);
-                        item.position.x = i * Para.size;
-                        item.position.y = j * Para.size;
-                        container.addChild(item);
-                    }
+                movePos = [];
+                changeCount = [];
+                for (var i = 0; i < Para.moveNumber; i++) {
+                    movePos[i] = i * 10;
+                    changeCount[i] = i;
+                    var item = new PIXI.Sprite(resources.item_a.texture);
+                    item.position.x = 120 + i * 2;
+                    item.position.y = 60 + i * 40;
+                    container.addChild(item);
                 }
 
                 _onload();
@@ -153,5 +144,5 @@
         _init();
     };
 
-    TEST.Html = Main;
+    TEST.Pixi = Main;
 })(window.PerformanceTest);

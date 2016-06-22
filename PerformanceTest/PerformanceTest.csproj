@@ -160,6 +160,10 @@
     <Content Include="Html\grid_bg.png" />
     <Content Include="Html\index.html" />
     <Content Include="Html\index.js" />
+    <Content Include="PixiTest\index.css" />
+    <Content Include="PixiTest\index.html" />
+    <Content Include="PixiTest\index.js" />
+    <Content Include="PixiTest\item.png" />
     <Content Include="Pixi\a.gif" />
     <Content Include="Pixi\b.gif" />
     <Content Include="Pixi\c.gif" />
