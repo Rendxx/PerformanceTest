@@ -124,7 +124,7 @@
                     movePos[i] = i * 20;
                     changeCount[i] = i;
                     moveItems[i] = [];
-                    var wrap = new PIXI.DisplayObjectContainer();
+                    var wrap = new PIXI.Container();
                     wrap.position.x = 120 + i * 10;
                     wrap.position.y = 60 + i * 40;
 
@@ -165,24 +165,36 @@
             animate();
         };
 
+        var _resize = function () {
+            SCREEN_WIDTH = window.innerWidth;
+            SCREEN_HEIGHT = window.innerHeight;
+            renderer.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+            fog.width = SCREEN_WIDTH;
+            fog.height = SCREEN_HEIGHT;
+        };
+
         var _setupHtml = function () {
             _html['wrap'] = $('.wrap');
             _html['scene'] = _html['wrap'].children('.scene');
                         
             SCREEN_WIDTH = window.innerWidth;
             SCREEN_HEIGHT = window.innerHeight;
-            renderer = new PIXI.WebGLRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+            renderer = new PIXI.autoDetectRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
             _html['scene'][0].appendChild(renderer.view);
-            stage = new PIXI.Container();
-            container = new PIXI.DisplayObjectContainer()
+            stage = new PIXI.Stage(0x333333, true);
+            container = new PIXI.Container()
 
             _loadCount++;
             var texture = PIXI.Texture.fromImage("grid_bg.png");
-            var tilingSprite = new PIXI.TilingSprite(texture, Para.width * Para.size, Para.height * Para.size);
+            var tilingSprite = new PIXI.extras.TilingSprite(texture, Para.width * Para.size, Para.height * Para.size);
             
             container.addChild(tilingSprite);
             stage.addChild(container);
             _onload();
+
+            window.onresize = function (event) {
+                _resize();
+            };
         };
 
         var _init = function () {
