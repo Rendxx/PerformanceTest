@@ -27,6 +27,7 @@
             delta_y = 0,
             movePos = [],
             changeCount = [],
+            moveItems = [],
             SCREEN_WIDTH = 0,
             SCREEN_HEIGHT = 0;
 
@@ -45,7 +46,13 @@
         // private
         var animate = function () {
             requestAnimationFrame(animate);
-            
+
+            for (var i = 0; i < Para.moveNumber; i++) {
+                moveItems[i][0].rotation += i * -Math.PI / 10;
+                moveItems[i][0].position.y = movePos[i];
+            }
+            container.position.x = x;
+            container.position.y = y;
 
             renderer.render(stage);
 
@@ -61,14 +68,20 @@
             else if (y < -Para.height * Para.size) y = Para.height * Para.size;
 
 
-            //for (var i = 0; i < Para.moveNumber; i++) {
-            //    movePos[i] = (movePos[i] + 1) % 200;
-            //    _html['moving'][i].css({
-            //        'top': movePos[i] + 'px'
-            //    });
-            //}
-            container.position.x = x;
-            container.position.y = y;
+            for (var i = 0; i < Para.moveNumber; i++) {
+                movePos[i] = (movePos[i] + 1) % 200;
+                changeCount[i]++;
+                if (changeCount[i] >= 30 + i * 5) {
+                    changeCount[i] = 0;
+
+                    moveItems[i][moveItems[i][4]].visible = false;
+                    moveItems[i][moveItems[i][4]].stop();
+
+                    moveItems[i][4] = Math.floor(Math.random() * 3) + 1;
+                    moveItems[i][moveItems[i][4]].visible = true;
+                    moveItems[i][moveItems[i][4]].play();
+                }
+            }
 
             setTimeout(moveControl, 30);
         };
@@ -93,26 +106,41 @@
             _loadCount++;
             PIXI.loader.add('item_a', 'a.json').add('item_b', 'b.json').add('item_c', 'c.json').load(function (loader, resources) {
 
-                var frames = [];
+                var frames = [[],[],[]];
 
                 for (var i = 0; i < 45; i++) {
                     var val = i < 10 ? '0' + i : i;
-                    frames.push(PIXI.Texture.fromFrame('iconA00' + val));
+                    frames[0].push(PIXI.Texture.fromFrame('iconA00' + val));
+                    frames[1].push(PIXI.Texture.fromFrame('iconB00' + val));
+                    frames[2].push(PIXI.Texture.fromFrame('iconC00' + val));
                 }
 
                 movePos = [];
                 changeCount = [];
                 for (var i = 0; i < Para.moveNumber; i++) {
-                    movePos[i] = i * 10;
+                    movePos[i] = i * 20;
                     changeCount[i] = i;
-                    var item = new PIXI.extras.MovieClip(frames);
-                    item.position.x = 120 + i * 2;
-                    item.position.y = 60 + i * 40;
-                    item.animationSpeed = 0.5;
-                    item.anchor.set(0.5);
-                    item.play();
+                    moveItems[i] = [];
+                    var wrap = new PIXI.DisplayObjectContainer();
+                    wrap.position.x = 120 + i * 10;
+                    wrap.position.y = 60 + i * 40;
 
-                    container.addChild(item);
+                    moveItems[i][0] = wrap;
+
+
+                    for (var j = 1; j <= 3; j++) {
+                        var item = new PIXI.extras.MovieClip(frames[j-1]);
+                        item.animationSpeed = 0.5;
+                        item.anchor.set(0.5);
+                        item.visible = false;
+                        wrap.addChild(item);
+                        moveItems[i][j] = item;
+                    }
+
+                    moveItems[i][1].visible = true;
+                    moveItems[i][1].play();
+                    moveItems[i][4] = 1;
+                    container.addChild(wrap);
                 }
 
                 _onload();
@@ -149,7 +177,6 @@
         var _init = function () {
             _setupHtml();
             createItem();
-            animate();
             moveControl();
         };
         _init();
