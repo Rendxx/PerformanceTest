@@ -190,6 +190,8 @@
             
             container.addChild(tilingSprite);
             stage.addChild(container);
+            stage.scale.x = 1.2;
+            stage.scale.y = 1.2;
             _onload();
 
             window.onresize = function (event) {
