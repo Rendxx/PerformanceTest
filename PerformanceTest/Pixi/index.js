@@ -3,10 +3,10 @@
 (function (TEST) {
     var Para = {
         size: 64,
-        width: 40,
-        height: 40,
+        width: 140,
+        height: 140,
         staticInterval: 4,
-        moveNumber: 6
+        moveNumber: 16
     };
 
     var Data = {
@@ -28,6 +28,7 @@
             movePos = [],
             changeCount = [],
             moveItems = [],
+            fog = null,
             SCREEN_WIDTH = 0,
             SCREEN_HEIGHT = 0;
 
@@ -53,6 +54,8 @@
             }
             container.position.x = x;
             container.position.y = y;
+            fog.position.x = -x;
+            fog.position.y = -y;            
 
             renderer.render(stage);
 
@@ -104,7 +107,7 @@
             });
 
             _loadCount++;
-            PIXI.loader.add('item_a', 'a.json').add('item_b', 'b.json').add('item_c', 'c.json').load(function (loader, resources) {
+            PIXI.loader.add('item_a', 'a.json').add('item_b', 'b.json').add('item_c', 'c.json').add('fog', 'fog2.png').load(function (loader, resources) {
 
                 var frames = [[],[],[]];
 
@@ -142,6 +145,14 @@
                     moveItems[i][4] = 1;
                     container.addChild(wrap);
                 }
+
+
+                fog = new PIXI.Sprite(resources.fog.texture);
+                fog.position.x = 0;
+                fog.position.y = 0;
+                fog.width = SCREEN_WIDTH;
+                fog.height = SCREEN_HEIGHT;
+                container.addChild(fog);
 
                 _onload();
             });
