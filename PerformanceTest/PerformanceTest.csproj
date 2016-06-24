@@ -160,6 +160,8 @@
     <Content Include="Html\grid_bg.png" />
     <Content Include="Html\index.html" />
     <Content Include="Html\index.js" />
+    <Content Include="PixiTest\a.png" />
+    <Content Include="PixiTest\movieclip.html" />
     <Content Include="PixiTest\index.css" />
     <Content Include="PixiTest\index.html" />
     <Content Include="PixiTest\index.js" />
@@ -195,6 +197,7 @@
     <Content Include="Pixi\c.json" />
     <Content Include="Pixi\a.json" />
     <Content Include="Pixi\b.json" />
+    <Content Include="PixiTest\a.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

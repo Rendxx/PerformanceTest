@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+    <script type="text/javascript" src="../lib/jquery.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="../controller/controller.move.js"></script>
+    <script src="../lib/stats.min.js"></script>
+    <script src="../lib/pixi.js"></script>
+    <link type="text/css" rel="stylesheet" href="../controller/controller.move.css" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>PIXI Test</title>
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f2f2f2;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        $(function () {
+
+            var renderer = PIXI.autoDetectRenderer(800, 600, { backgroundColor: 0x1099bb });
+            document.body.appendChild(renderer.view);
+
+            // create the root of the scene graph
+            var stage = new PIXI.Container();
+            var container = new PIXI.Container();
+
+            stage.addChild(container);
+
+            container.position.x = 200;
+            container.position.y = 250;
+            container.pivot.x = 80 + 26 * 0.5;
+            container.pivot.y = 80 + 37 * 0.5;
+
+
+
+            PIXI.loader.add('item_a', 'a.json').load(function (loader, resources) {
+
+                var frames = [];
+
+                for (var i = 0; i < 45; i++) {
+                    var val = i < 10 ? '0' + i : i;
+                    frames.push(PIXI.Texture.fromFrame('iconA00' + val));
+                }
+
+                var item = new PIXI.extras.MovieClip(frames);
+                item.animationSpeed = 0.5;
+                item.anchor.set(0.5);
+                container.addChild(item);
+                item.loop = false;
+                window.test = item;
+                item.play();
+            });
+
+
+
+            // start animating
+            animate();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // render the root container
+                renderer.render(stage);
+            }
+        });
+    </script>
+</body>
+</html>
