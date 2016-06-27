@@ -161,6 +161,7 @@
     <Content Include="Html\index.html" />
     <Content Include="Html\index.js" />
     <Content Include="PixiTest\a.png" />
+    <Content Include="PixiTest\graphic.html" />
     <Content Include="PixiTest\movieclip.html" />
     <Content Include="PixiTest\index.css" />
     <Content Include="PixiTest\index.html" />

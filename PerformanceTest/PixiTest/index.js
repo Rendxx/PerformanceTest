@@ -28,15 +28,18 @@
 
         var container = new PIXI.Container();
 
+        var c2 = new PIXI.Container();
         stage.addChild(container);
+        container.addChild(c2);
 
+        c2.position.set(100,100);
         for (var j = 0; j < 5; j++) {
 
             for (var i = 0; i < 5; i++) {
                 var bunny = PIXI.Sprite.fromImage('item.png');
                 bunny.x = 40 * i;
                 bunny.y = 40 * j;
-                container.addChild(bunny);
+                c2.addChild(bunny);
             };
         };
 
